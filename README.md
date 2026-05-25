@@ -1,73 +1,165 @@
-# React + TypeScript + Vite
+# Погода в місті
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Додаток для перегляду поточної погоди та прогнозу в будь-якому місті світу.
 
-Currently, two official plugins are available:
+## Демо
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Проект задеплоєний на Vercel:  
+[https://weather-app-navy-mu-67.vercel.app/](https://weather-app-navy-mu-67.vercel.app/)
 
-## React Compiler
+## Функціонал
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- 🔍 **Пошук міста** - введіть назву міста для отримання погоди
+- 🌤️ **Поточна погода** - температура, стан, вологість, вітер, тиск, видимість
+- 📅 **Прогноз на 5 днів** - з мінімальною та максимальною температурою
+- 🕐 **Почасовий прогноз** - на 24 години з кроком 3 години
+- ⭐ **Обрані міста** - додавайте міста в обране та швидко перемикайтесь між ними
+- 💾 **LocalStorage** - збереження обраних міст після перезавантаження сторінки
+- 🔗 **URL параметри** - поширюйте посилання з конкретним містом (`?searchCity=Kyiv`)
+- 📱 **Адаптивний дизайн** - коректно відображається на всіх пристроях
 
-## Expanding the ESLint configuration
+## Технології
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- React 19
+- TypeScript
+- Vite
+- Tailwind CSS v4
+- Zustand
+- Axios
+- React Query
+- React Router DOM
+- Zod
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Встановлення та запуск
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Вимоги
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- Node.js (версія 18 або вище)
+- npm або yarn
+
+### Кроки для запуску
+
+1. **Клонування репозиторію**
+
+```bash
+git clone <url-репозиторію>
+cd weather
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. **Встановлення залежностей**
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
+
+3. **Отримання API ключа**
+
+- Зареєструйтесь на OpenWeatherMap
+- Підтвердіть email
+- Знайдіть ваш API ключ в розділі "API Keys"
+- Ключ активується протягом 10 хвилин - 2 годин
+
+4. **Налаштування змінних середовища**
+
+Скопіюйте файл `.env.example` в `.env`:
+
+```bash
+cp .env.example .env
+```
+
+Додайте ваш ключ:
+
+```env
+WEATHER_OPENWEATHER_API_KEY=ваш_api_ключ
+```
+
+5. **Запуск в режимі розробки**
+
+```bash
+npm run dev
+```
+
+Додаток буде доступний за адресою: http://localhost:5173
+
+6. **Збірка для продакшну**
+
+```bash
+npm run build
+```
+
+7. **Попередній перегляд збірки**
+
+```bash
+npm run preview
+```
+
+## Використання
+
+### Пошук міста
+
+Введіть назву міста в поле пошуку (наприклад, "Kyiv", "Lviv", "London") та натисніть кнопку "Пошук" або клавішу Enter.
+
+### Перегляд прогнозу
+
+- За замовчуванням показується прогноз на 24 години
+- Натисніть "🕐 На 24 години" для перегляду почасового прогнозу
+- Натисніть "📅 На 5 днів" для повернення до денного прогнозу
+
+### Робота з обраними містами
+
+- Натисніть ☆ біля назви міста для додавання в обране
+- Натисніть ★ для видалення з обраного
+- Натисніть "Показати обрані міста" для перегляду списку
+- Клікніть на місто в списку для швидкого перегляду погоди
+
+### Поширення посилання
+
+При пошуку міста URL автоматично оновлюється: ?searchCity=Kyiv. Скопіюйте посилання та надішліть іншій людині. При переході за посиланням одразу завантажиться погода для вказаного міста.
+
+## Структура проекту
+
+```
+└── 📁src
+    └── 📁api
+        ├── api.ts
+        ├── query-client.ts
+        ├── weather.api.ts
+    └── 📁components
+        └── 📁ui
+            ├── loading.tsx
+            ├── notification.tsx
+        ├── favorite-button.tsx
+        ├── forecast-card.tsx
+        ├── header.tsx
+        ├── logo.tsx
+        ├── weather-forecast.tsx
+        ├── weather.tsx
+    └── 📁lib
+        └── 📁schemas
+            ├── weather.schema.ts
+        ├── env.ts
+        ├── icons.ts
+        ├── utils.ts
+    └── 📁store
+        ├── favorite.store.ts
+    └── 📁types
+        ├── weather.ts
+    ├── App.tsx
+    ├── globals.css
+    ├── main.tsx
+    ├── providers.tsx
+    └── vite-env.d.ts
+```
+
+## Можливі проблеми та рішення
+
+### API ключ не працює
+
+- Переконайтесь, що ключ скопійований без зайвих пробілів
+- Перевірте, що минуло достатньо часу після створення ключа (до 2 годин)
+- Переконайтесь, що файл .env знаходиться в корені проекту
+
+### Місто не знайдено
+
+- Перевірте правильність написання назви міста
+- Спробуйте написати місто англійською (наприклад "Kyiv" замість "Київ")
